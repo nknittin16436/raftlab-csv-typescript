@@ -1,0 +1,20 @@
+{
+  "name": "raftlabs-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.ts"
+  },
+  "author": "Nand kumar",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@types/papaparse": "^5.3.7",
+    "axios": "^1.3.4",
+    "papaparse": "^5.3.2"
+  }
+}
