@@ -17,9 +17,3 @@ export interface Author {
     firstname: string;
     lastname: string;
 }
-
-export interface ResultsArray {
-    Books?: Book[];
-    Magazines?: Magazine[];
-    Authors?: Author[];
-}
