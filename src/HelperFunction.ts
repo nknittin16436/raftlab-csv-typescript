@@ -2,6 +2,7 @@ import axios from 'axios';
 import Papa from 'papaparse';
 import { BOOK_CSV_URL, MAGAZINE_CSV_URL } from './constants/constant';
 import { Book, Magazine } from './dtos/dto';
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 const csvTextFromUrl = async (url: string): Promise<string> => {
     try {
@@ -58,3 +59,46 @@ export const sortAllBooksAndMagazinesByTitle = async (): Promise<(Book | Magazin
     console.log(filteredResults);
     return filteredResults;
 };
+
+
+
+
+export const writeDataToCsvFile = (publication: Book | Magazine) => {
+    const header = [
+        { id: 'title', title: 'Title' },
+        { id: 'authors', title: 'Authors' },
+        { id: 'isbn', title: 'isbn' }
+    ];
+    let file_name: string = '';
+    const data = [];
+
+    if ('description' in publication) {
+        file_name = "book.csv"
+        header.push({ id: 'description', title: 'Description' });
+        data.push({
+            title: publication.title,
+            authors: publication.authors,
+            isbn: publication.isbn,
+            description: publication.description
+        });
+    } else if ('publishedAt' in publication) {
+        file_name = "magazine.csv"
+        header.push({ id: 'publishedAt', title: 'Published At' });
+        data.push({
+            title: publication.title,
+            authors: publication.authors,
+            isbn: publication.isbn,
+            publishedAt: publication.publishedAt
+        });
+    }
+
+    const csvWriter = createCsvWriter({
+        path: file_name,
+        header,
+        fieldDelimiter: ';'
+    });
+
+    csvWriter.writeRecords(data)
+        .then(() => console.log(`CSV file ${file_name} has been written successfully.`))
+        .catch((error: any) => console.error(`Error occurred while writing CSV file: ${error}`));
+}
