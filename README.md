@@ -15,7 +15,7 @@ Run server
 $ npm run start
 
 
-Yay!! you should see the web app running now
+Yay!! you should see the app running now
 
 ```
 ### To run Test Cases
